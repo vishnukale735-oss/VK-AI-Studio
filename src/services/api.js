@@ -1,37 +1,70 @@
-import axios from "axios";
+const API_URL = "http://127.0.0.1:8000";
 
 
-const API = axios.create({
+// ===============================
+// AI CHAT
+// ===============================
 
-    baseURL: "http://127.0.0.1:8000"
+export async function chatAI(message) {
+  const response = await fetch(`${API_URL}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: message,
+    }),
+  });
 
-});
+  if (!response.ok) {
+    throw new Error("Chat request failed");
+  }
 
-
-// Chat AI
-
-export const chatAI = (message) => {
-
-    return API.post("/chat", {
-
-        message: message
-
-    });
-
-};
-
-
-// YouTube Script Generator
-
-export const generateScript = (topic) => {
-
-    return API.post("/script", {
-
-        topic: topic
-
-    });
-
-};
+  return await response.json();
+}
 
 
-export default API;
+// ===============================
+// SCRIPT GENERATOR
+// ===============================
+
+export async function generateScript(topic) {
+  const response = await fetch(`${API_URL}/script`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      topic: topic,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Script generation failed");
+  }
+
+  return await response.json();
+}
+
+
+// ===============================
+// THUMBNAIL GENERATOR
+// ===============================
+
+export async function generateThumbnail(topic) {
+  const response = await fetch(`${API_URL}/thumbnail`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      topic: topic,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Thumbnail generation failed");
+  }
+
+  return await response.json();
+}

@@ -1,39 +1,56 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/layout/Sidebar";
 import Dashboard from "./components/Dashboard";
-import AIAssistant from "./components/AIAssistant";
-import ScriptGenerator from "./components/ScriptGenerator";
+import AIAssistant from "./components/assistant/AIAssistant";
+import ScriptGenerator from "./components/youtube/ScriptGenerator";
+import ThumbnailGenerator from "./components/youtube/ThumbnailGenerator";
 
 function App() {
+  const [activePage, setActivePage] = useState("dashboard");
 
-  const [page, setPage] = useState("dashboard");
+  const renderPage = () => {
+    switch (activePage) {
+      case "dashboard":
+        return <Dashboard />;
+
+      case "assistant":
+        return <AIAssistant />;
+
+      case "script":
+        return <ScriptGenerator />;
+
+      case "thumbnail":
+        return <ThumbnailGenerator />;
+
+      default:
+        return <Dashboard />;
+    }
+  };
 
   return (
+    <div className="app">
 
-    <div className="app-container">
-
-      {/* Left Sidebar */}
-
-      <Sidebar />
-
-      {/* Main Content */}
+      <Sidebar
+        activePage={activePage}
+        setActivePage={setActivePage}
+      />
 
       <div className="main-content">
 
-        <Dashboard />
+        <div className="top-bar">
+          <h2>VK AI Studio</h2>
+        </div>
 
-        <AIAssistant />
-
-        <ScriptGenerator />
+        <div className="page-content">
+          {renderPage()}
+        </div>
 
       </div>
 
     </div>
-
   );
-
 }
 
 export default App;

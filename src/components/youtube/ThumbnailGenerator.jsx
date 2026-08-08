@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { generateThumbnail } from "../services/api";
+import { generateThumbnail } from "../../services/api";
 
 function ThumbnailGenerator() {
 
@@ -33,7 +33,6 @@ function ThumbnailGenerator() {
       setLoading(false);
 
     }
-
   };
 
   return (
@@ -46,11 +45,13 @@ function ThumbnailGenerator() {
         type="text"
         placeholder="Enter YouTube Topic..."
         value={topic}
-        onChange={(e)=>setTopic(e.target.value)}
+        onChange={(e) => setTopic(e.target.value)}
       />
 
       <button onClick={handleGenerate}>
-        {loading ? "Generating..." : "Generate Thumbnail Prompt"}
+        {loading
+          ? "Generating..."
+          : "Generate Thumbnail Prompt"}
       </button>
 
       <textarea
@@ -63,7 +64,6 @@ function ThumbnailGenerator() {
     </div>
 
   );
-
 }
 
 export default ThumbnailGenerator;
